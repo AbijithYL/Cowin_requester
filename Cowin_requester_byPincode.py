@@ -7,16 +7,16 @@ import getpass
 
 # date_tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 # date = date_tomorrow.strftime('%d-%m-%Y')
-date = datetime.date.today().strftime('%d-%m-%Y') # To find available slots from current day for next seven days
-
+date = datetime.today().strftime('%d-%m-%Y')
 port = 587
-sender_email = "lancelot3678@outlook.com"
+sender_email = input("Enter sender outlook email address: ")
 password = getpass.getpass(prompt="Enter your password: ")
 smtp_server = "smtp.outlook.com"
-receiver_email = "f20180448@hyderabad.bits-pilani.ac.in"
-cc = "rekha.narasimham@gmail.com"
+receiver_email = input("Enter receiver email address: ")
+cc = input("Enter cc address: ")
 SUBJECT = "COVID VACCINE AVAILABILITY"
 context = ssl.create_default_context()
+
 #Pune District code = 363
 pincodes = ['411057', '411033', '411027', '411045'] # Wakad, Chinchwadgaon, Aundh, Baner
 
