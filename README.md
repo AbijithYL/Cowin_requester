@@ -1,5 +1,5 @@
 # Python scripts to automatically find vaccination slots with required criteria and send an email for notifying
-Note: You need an outlook email id to send the emails.
+Note: You need an outlook email id to send the emails. <br>
 Google "What is my user agent" from your browser, and use that in the user_agent variable
 
 Note: The code will sleep for an hour after sending a mail
