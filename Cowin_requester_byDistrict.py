@@ -4,9 +4,8 @@ import json
 import time
 import smtplib, ssl
 import getpass
-# hqvarapvimvrtjyx
-date_tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-date = date_tomorrow.strftime('%d-%m-%Y')
+
+date = datetime.today().strftime('%d-%m-%Y')
 port = 587
 sender_email = input("Enter sender outlook email address: ")
 password = getpass.getpass(prompt="Enter your password: ")
@@ -15,13 +14,13 @@ receiver_email = input("Enter receiver email address: ")
 cc = input("Enter cc address: ")
 SUBJECT = "COVID VACCINE AVAILABILITY"
 context = ssl.create_default_context()
-#Pune District code = 363
+
 
 serviceurl = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?"
 
-user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36'
+user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36' #Google your own user agent and use that instead
 headers = {"User-Agent":user_agent}
-parms = {"district_id": "363", "date": date}
+parms = {"district_id": "363", "date": date} #Pune District code = 363
 url = serviceurl + urllib.parse.urlencode(parms)
 
 while(True):
@@ -41,9 +40,10 @@ while(True):
     for center in js["centers"]:
         sessions = center["sessions"]
         for session in sessions:
+            # Slots for 18-44 and vaccine as covaxin
             if  session["min_age_limit"] == 18 and session["available_capacity"] != 0 and session["vaccine"] == "COVAXIN":
                 avail_centers.append({"name": center["name"], "available_capacity": session["available_capacity"],  "date": session["date"], "fee_type": center["fee_type"], "address": center["address"], "slots": session["slots"], "vaccine": session["vaccine"]})
-            
+            #slots for 45+ and vaccine as covishield
             if  session["min_age_limit"] == 45 and session["available_capacity"] != 0 and session["vaccine"] == "COVISHIELD":
                 avail_centers.append({"name": center["name"], "available_capacity": session["available_capacity"],  "date": session["date"], "fee_type": center["fee_type"], "address": center["address"], "slots": session["slots"], "vaccine": session["vaccine"]})
     
